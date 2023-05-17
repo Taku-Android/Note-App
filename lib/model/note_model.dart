@@ -47,6 +47,6 @@ class NoteModel extends HiveObject {
   9- go to terminal and write flutter packages pub run build_runner build
       to generate the type adapter
 
-  10-
+  10-init Hive in main and openBox to save the data in  make it final static
 
  */
