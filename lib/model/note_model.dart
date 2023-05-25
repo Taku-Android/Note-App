@@ -42,10 +42,11 @@ class NoteModel extends HiveObject {
 
   7- give hiveField to every variable u have
 
-  8- make the part (like the import ) to make him know which file he will generate
+  8- make the ' part '  (like the import ) to make him know which file he will generate
 
-  9- go to terminal and write flutter packages pub run build_runner build
+  9- go to  { terminal }    and write      flutter packages pub run build_runner build
       to generate the type adapter
+      VI --   the file generator must be the same name but have .g make sure it the same name
 
   10-init Hive in main and openBox to save the data in  make it final static
 
