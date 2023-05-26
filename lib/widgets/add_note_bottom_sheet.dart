@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:note_app/cubits/add_note_cubit/add_notes_cubit.dart';
 import 'package:note_app/cubits/add_note_cubit/add_notes_state.dart';
 import 'add_note_form.dart';
@@ -15,7 +14,7 @@ class AddNoteBottomSheet extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: SingleChildScrollView(
-            child: BlocConsumer<AddNoteCubit , AddNoteState>(
+            child: BlocListener<AddNoteCubit , AddNoteState>(
                 listener: (context , state){
                   if(state is AddNoteFailure){
                     print('failed ${state.errMessage}');
@@ -25,11 +24,7 @@ class AddNoteBottomSheet extends StatelessWidget {
                   }
 
                 },
-                builder:(context , state){
-                  return  ModalProgressHUD(
-                      inAsyncCall: state is AddNoteLoading ? true : false ,
-                      child: const AddNoteForm()) ;
-                } ,
+                child: const AddNoteForm(),
                 )
         ),
       ),
@@ -37,3 +32,20 @@ class AddNoteBottomSheet extends StatelessWidget {
   }
 }
 
+
+/**
+ *
+ * we have 3 bloc`s
+ * 1 - Bloc Listener
+ * 2 - Bloc Consumer
+ * 3 - Bloc Builder
+ *
+ *  --- what`s the diffrence between them
+ *
+ *  Bloc Listener -> listen and make some code`s  if something changes
+ *  Bloc Builder  -> reBuild the ui every time  if there is change he will rebuild it
+ *  Bloc Consumer -> using listener and the builder
+ *
+ *  so use depend on your needs  ----
+ *
+ */

@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 
 import '../constants.dart';
 class CustomButton extends StatelessWidget {
-  const CustomButton({Key? key, this.onTap}) : super(key: key);
+  const CustomButton({Key? key, this.onTap, this.isLoading = false}) : super(key: key);
 
   final void Function()? onTap ;
 
+  final bool isLoading ;
+
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return (isLoading)?const Center(child: CircularProgressIndicator()):GestureDetector(
       onTap: onTap,
       child: Container(
         width: MediaQuery.of(context).size.width,
