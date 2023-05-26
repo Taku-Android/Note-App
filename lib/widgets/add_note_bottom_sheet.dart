@@ -12,30 +12,31 @@ class AddNoteBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return  BlocProvider(
       create: (context) => AddNoteCubit(),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0),
-        child: SingleChildScrollView(
-            child: BlocConsumer<AddNoteCubit , AddNoteState>(
-                listener: (context , state){
-                  if(state is AddNoteFailure){
-                    if (kDebugMode) {
-                      print('failed ${state.errMessage}');
-                    }
+      child: SingleChildScrollView(
+          child: BlocConsumer<AddNoteCubit , AddNoteState>(
+              listener: (context , state){
+                if(state is AddNoteFailure){
+                  if (kDebugMode) {
+                    print('failed ${state.errMessage}');
                   }
-                  if(state is AddNoteSuccess){
-                    Navigator.pop(context);
-                  }
+                }
+                if(state is AddNoteSuccess){
+                  Navigator.pop(context);
+                }
 
-                },
-              builder:(context , state){
-                return  AbsorbPointer(
-                  // this stop the user from making any changes to the ui
-                  // until something u want happen
-                  absorbing: state is AddNoteLoading ? true : false ,
-                    child: const AddNoteForm()) ;
-              } ,
-            )
-        ),
+              },
+            builder:(context , state){
+              return  AbsorbPointer(
+                // this stop the user from making any changes to the ui
+                // until something u want happen
+                absorbing: state is AddNoteLoading ? true : false ,
+                  child: Padding(
+                    padding:  EdgeInsets.only(left: 16.0 , right: 16.0 ,
+                    bottom: MediaQuery.of(context).viewInsets.bottom),
+                    child:  const AddNoteForm(),
+                  )) ;
+            } ,
+          )
       ),
     );
   }
