@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/add_note_cubit/add_notes_cubit.dart';
@@ -14,18 +15,26 @@ class AddNoteBottomSheet extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: SingleChildScrollView(
-            child: BlocListener<AddNoteCubit , AddNoteState>(
+            child: BlocConsumer<AddNoteCubit , AddNoteState>(
                 listener: (context , state){
                   if(state is AddNoteFailure){
-                    print('failed ${state.errMessage}');
+                    if (kDebugMode) {
+                      print('failed ${state.errMessage}');
+                    }
                   }
                   if(state is AddNoteSuccess){
                     Navigator.pop(context);
                   }
 
                 },
-                child: const AddNoteForm(),
-                )
+              builder:(context , state){
+                return  AbsorbPointer(
+                  // this stop the user from making any changes to the ui
+                  // until something u want happen
+                  absorbing: state is AddNoteLoading ? true : false ,
+                    child: const AddNoteForm()) ;
+              } ,
+            )
         ),
       ),
     );
