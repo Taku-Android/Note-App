@@ -9,6 +9,8 @@ class NotesCubit extends Cubit<NotesState>{
 
 
 
+  NoteModel? note ;
+  int? index ;
   List<NoteModel>? notes ;
 
   getAllNotes() async {
