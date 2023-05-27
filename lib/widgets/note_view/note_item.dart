@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:note_app/cubits/notes_cubit/notes_cubit.dart';
+import 'package:note_app/model/note_model.dart';
 import 'package:note_app/views/edit_note_view.dart';
 
 class NoteItem extends StatelessWidget {
-  const NoteItem({Key? key, required this.index}) : super(key: key);
+  const NoteItem({Key? key, required this.note}) : super(key: key);
 
-  final int index ;
+  final NoteModel note ;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +20,7 @@ class NoteItem extends StatelessWidget {
         margin: const EdgeInsets.symmetric(vertical: 4) ,
         padding: const EdgeInsets.only(top: 24 , bottom: 24 , left: 16 ),
         decoration: BoxDecoration(
-          color: const Color(0xffFFCC80),
+          color: Color(note.color),
           borderRadius: BorderRadius.circular(16) ,
 
         ),
@@ -29,13 +28,13 @@ class NoteItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             ListTile(
-              title:  Text(BlocProvider.of<NotesCubit>(context).notes![index].title , style: const TextStyle(
+              title:  Text(note.title , style: const TextStyle(
                   color: Colors.black ,
                   fontSize: 28
               ),),
               subtitle: Padding(
                 padding: const EdgeInsets.only(top: 16.0),
-                child: Text(BlocProvider.of<NotesCubit>(context).notes![index].subTitle, style: TextStyle(
+                child: Text(note.subTitle, style: TextStyle(
                     color: Colors.black.withOpacity(.5) ,
                     fontSize: 20
                 ),),
@@ -50,7 +49,7 @@ class NoteItem extends StatelessWidget {
             ) ,
             Padding(
               padding: const EdgeInsets.only(right: 24.0 , top: 24),
-              child: Text(BlocProvider.of<NotesCubit>(context).notes![index].date , style: TextStyle(
+              child: Text(note.date , style: TextStyle(
                 color: Colors.black.withOpacity(.5) ,
               ),),
             )
@@ -61,4 +60,6 @@ class NoteItem extends StatelessWidget {
       ),
     );
   }
+
+
 }
