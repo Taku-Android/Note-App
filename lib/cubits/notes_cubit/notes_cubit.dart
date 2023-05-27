@@ -9,19 +9,11 @@ class NotesCubit extends Cubit<NotesState>{
 
 
 
-  List<NoteModel> notes = [] ;
+  List<NoteModel>? notes ;
 
   getAllNotes() async {
     var  noteBox  = Hive.box<NoteModel>(kHiveBox);
-
-    try{
-      emit(NotesLoading());
-      notes =  noteBox.values.toList();
-      emit(NotesSuccess());
-
-    }catch(e){
-      emit(NotesFailure(e.toString()));
-    }
+     notes =  noteBox.values.toList();
 
   }
 

@@ -1,10 +1,13 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:note_app/cubits/notes_cubit/notes_cubit.dart';
 import 'package:note_app/views/edit_note_view.dart';
 
 class NoteItem extends StatelessWidget {
-  const NoteItem({Key? key}) : super(key: key);
+  const NoteItem({Key? key, required this.index}) : super(key: key);
+
+  final int index ;
 
   @override
   Widget build(BuildContext context) {
@@ -26,13 +29,13 @@ class NoteItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             ListTile(
-              title: const Text('Flutter tips' , style: TextStyle(
+              title:  Text(BlocProvider.of<NotesCubit>(context).notes![index].title , style: const TextStyle(
                   color: Colors.black ,
                   fontSize: 28
               ),),
               subtitle: Padding(
                 padding: const EdgeInsets.only(top: 16.0),
-                child: Text('build your career correct', style: TextStyle(
+                child: Text(BlocProvider.of<NotesCubit>(context).notes![index].subTitle, style: TextStyle(
                     color: Colors.black.withOpacity(.5) ,
                     fontSize: 20
                 ),),
@@ -47,7 +50,7 @@ class NoteItem extends StatelessWidget {
             ) ,
             Padding(
               padding: const EdgeInsets.only(right: 24.0 , top: 24),
-              child: Text('Mar 9/9/2001' , style: TextStyle(
+              child: Text(BlocProvider.of<NotesCubit>(context).notes![index].date , style: TextStyle(
                 color: Colors.black.withOpacity(.5) ,
               ),),
             )
